@@ -4,15 +4,28 @@ var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser')
 var http = require('http').Server(app);
-var io = require('socket.io')(http);
 
 var app = express();
+
+
+// Listen : localhost:3000
+var server = app.listen(3000, () => {
+  console.log('server is running on port', server.address().port);
+});
+
+// soket.io
+var io = require('socket.io').listen(server);
+io.on('connection', () =>{
+  console.log('a user is connected')
+})
 
 
 
 // Mongo db
 var dbUrl = '****'
-mongoose.connect(dbUrl , (err) => { 
+
+mongoose.set('useUnifiedTopology', true);
+mongoose.connect(dbUrl, { useNewUrlParser: true } , (err) => { 
     console.log('mongodb connected',err);
 })
 var Message = mongoose.model('Message',{ name : String, message : String});
@@ -47,17 +60,3 @@ app.post('/messages', (req, res) => {
 
 
 
-
-
-
-
-
-io.on('connection', () =>{
-    console.log('a user is connected')
-})
-
-
-// Listen : localhost:3000
-var server = app.listen(3000, () => {
-    console.log('server is running on port', server.address().port);
-});
