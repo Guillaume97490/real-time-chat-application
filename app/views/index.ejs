@@ -1,0 +1,29 @@
+<% include ./templates/head.ejs %>
+<div class="container">
+  <div class="d-flex flex-column content-custom">
+
+  <section>
+    <h1 class="">Messages</h1>
+  </section>
+  <section class="two d-flex overflow-auto">
+    <div class="w-100  mt-auto" id="messages"></div>
+  </section>
+
+  <section >
+    <div class="jumbotron m-0 py-0 py-md-4 px-0 px-md-3 pt-3">
+        <!-- <br> -->
+        <input id="name" class="form-control" placeholder="Nom">
+        <!-- <br> -->
+        <div class="position-relative">
+          <textarea id="message" class="form-control" placeholder="Votre message ici"></textarea>
+          <button data-action-btn id="send" class="btn btn-success position-absolute">Envoyer</button>
+
+        </div>
+          
+        <!-- <br> -->
+    </div>
+  </section>
+</div>
+  
+</div>
+<% include ./templates/footer.ejs %>

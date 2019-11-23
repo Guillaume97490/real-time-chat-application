@@ -1,0 +1,105 @@
+html,
+body {
+  height: 100%;
+
+
+  flex-direction: column!important;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0px;
+  padding-top: 40px;
+}
+
+#page-content {
+  flex: 1 0 auto;
+  position: relative;
+}
+
+.content-custom{
+  flex-direction: column!important;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    padding-top: 40px;
+}
+
+#messages .row{
+  padding: 0 !important;
+  margin: initial;
+  /* margin: 0 !important; */
+  /* margin-left: -10; */
+  /* margin-right: 0px; */
+}
+
+button[data-action-btn]{
+  top: 0;
+  bottom: 0;
+  right: 0;
+}
+
+textarea.form-control {
+  padding-right: 95px;
+}
+
+section.two{
+  flex-basis: 100%;
+}
+
+[data-msg-author],[data-msg-content]{
+  word-break: break-all;
+}
+
+#sticky-footer {
+  flex-shrink: none;
+}
+
+/* .jumbotron{
+  bottom: 40px;
+  right: 0;
+  left: 0;
+} */
+
+
+
+
+
+/***** Top content *****/
+
+.nav-link.active{
+  background: #80a7bf4f;
+  font-weight: 400;
+  border-radius: .3rem;
+}
+
+
+
+
+@media only screen and (max-width: 853px) {
+  
+}
+
+
+
+
+  
+
+/***** Media queries *****/
+
+@media (min-width: 992px) and (max-width: 1199px) {
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+}
+
+@media (max-width: 767px) {
+  
+}
+
+@media (max-width: 415px) {
+ 
+}

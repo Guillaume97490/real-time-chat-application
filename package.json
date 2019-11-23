@@ -2,9 +2,12 @@
   "name": "real-time-chat-application",
   "version": "1.0.0",
   "description": "Application de discussion en temps réel",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --delay 0.3 app.js -e ejs,js,json",
+    "stop": "lsof -ti :3000 | xargs kill"
+    
   },
   "repository": {
     "type": "git",
@@ -18,9 +21,11 @@
   "homepage": "https://github.com/Guillaume97490/real-time-chat-application#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "ejs": "^2.7.4",
     "express": "^4.17.1",
     "http": "0.0.0",
     "mongoose": "^5.7.11",
+    "path": "^0.12.7",
     "socket.io": "^2.3.0"
   }
 }
