@@ -7,7 +7,6 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon --delay 0.3 app.js -e ejs,js,json",
     "stop": "lsof -ti :3000 | xargs kill"
-    
   },
   "repository": {
     "type": "git",
@@ -24,6 +23,7 @@
     "ejs": "^2.7.4",
     "express": "^4.17.1",
     "http": "0.0.0",
+    "moment": "^2.24.0",
     "mongoose": "^5.7.11",
     "path": "^0.12.7",
     "socket.io": "^2.3.0"

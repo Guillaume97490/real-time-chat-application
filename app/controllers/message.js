@@ -1,25 +1,41 @@
-let Message = require('../models/message')
+let Message = require('../models/message');
+const moment = require('moment');
+require('moment/locale/fr');
+moment.updateLocale('fr', {calendar : {sameElse : 'DD MMM YYYY'}});
 
-exports.index = (req,res)=> {
-  res.render('index.ejs', {
-    title: 'Accueil'
-  })
+dayFormat = (dayToDisplay) => {
+  let date = moment(dayToDisplay);
+  if (moment().diff(date, 'days') >= 1 && moment().diff(date, 'days') <= 7) {
+    return date.fromNow();
+  };
+  return date.calendar().split(' à ')[0];
 }
 
-exports.list = (req, res) => {
-    Message.find({},(err, messages)=> res.send(messages))
-};
+exports.index = (req,res)=> res.render('index.ejs', {title: 'Accueil'});
 
+exports.list = (req, res) => {
+    Message.find({},(err, messages) => {
+      messages.forEach(message => {
+        createdAt = message.createdAt;
+        message.createdAt = moment(createdAt).format('HH:mm');
+        message.day = dayFormat(createdAt);
+        // message.day = moment(createdAt).calendar().split(" à ")[0];
+      });
+    res.send(messages);
+}).lean().sort({createdAt: 1});
+};
 
 exports.add = (req, res) => {
   var message = new Message(req.body);
   message.save((err) =>{
     if(err)
       return res.status(500).json({error: 'Une erreur est survenue'});
-    req.body._id = message._id
+    req.body._id = message._id;
+    req.body.createdAt = moment(message.createdAt).format('HH:mm');
+    req.body.day = dayFormat(createdAt);
     global.io.emit('message', req.body);
     res.sendStatus(200);
-  })
+  });
 };
 
 exports.delete = (req,res) => {
@@ -28,18 +44,17 @@ exports.delete = (req,res) => {
       return res.status(500).json({error: 'Une erreur est survenue'});
     global.io.emit('delMsg', req.params.id);
     res.sendStatus(200);
-  })
+  });
 };
 
 exports.update = (req,res)=> {
   Message.findByIdAndUpdate(req.body.id, {
     name: req.body.name,
     message: req.body.message
-  },
-  (err)=>{
-    if (err)
-      return res.status(500).json({error: 'Une erreur est survenue'});
-    global.io.emit('updMsg', req.body);
-    res.sendStatus(200);
-  })
+  },(err)=>{
+      if (err)
+        return res.status(500).json({error: 'Une erreur est survenue'});
+      global.io.emit('updMsg', req.body);
+      res.sendStatus(200);
+  });
 };

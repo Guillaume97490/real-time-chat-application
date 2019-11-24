@@ -2,7 +2,6 @@ html,
 body {
   height: 100%;
 
-
   flex-direction: column!important;
   position: absolute;
   bottom: 0;
@@ -31,9 +30,6 @@ body {
 #messages .row{
   padding: 0 !important;
   margin: initial;
-  /* margin: 0 !important; */
-  /* margin-left: -10; */
-  /* margin-right: 0px; */
 }
 
 button[data-action-btn]{
@@ -50,6 +46,20 @@ section.two{
   flex-basis: 100%;
 }
 
+[data-msg-author]{
+  font-weight: 600;
+  color: #2461af;
+}
+
+.day span{
+  z-index: 2;
+  color: rgba(0, 0, 0, 0.6);
+}
+.small{
+  font-size: 60%;
+  padding-left: 10px;
+}
+
 [data-msg-author],[data-msg-content]{
   word-break: break-all;
 }
@@ -58,48 +68,8 @@ section.two{
   flex-shrink: none;
 }
 
-/* .jumbotron{
-  bottom: 40px;
-  right: 0;
-  left: 0;
-} */
-
-
-
-
-
-/***** Top content *****/
-
 .nav-link.active{
   background: #80a7bf4f;
   font-weight: 400;
   border-radius: .3rem;
-}
-
-
-
-
-@media only screen and (max-width: 853px) {
-  
-}
-
-
-
-
-  
-
-/***** Media queries *****/
-
-@media (min-width: 992px) and (max-width: 1199px) {
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-}
-
-@media (max-width: 767px) {
-  
-}
-
-@media (max-width: 415px) {
- 
 }
