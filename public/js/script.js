@@ -14,7 +14,7 @@ $(() => {
     $("#name").addClass('no-empty');
 
   });
-  $('#emoji-menu button').click((emoji)=> $('#message').val($('#message').val()+' '+$(emoji.currentTarget).data('emoji')));
+  $('#emoji-menu button').click((emoji)=> $('#message').val($('#message').val()+' '+$(emoji.currentTarget).text()));
   getMessages();
 });
 
