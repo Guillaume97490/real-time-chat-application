@@ -26,13 +26,14 @@ exports.list = (req, res) => {
 };
 
 exports.add = (req, res) => {
+  req.body.createdAt = moment();
   var message = new Message(req.body);
   message.save((err) =>{
     if(err)
       return res.status(500).json({error: 'Une erreur est survenue'});
     req.body._id = message._id;
     req.body.createdAt = moment(message.createdAt).format('HH:mm');
-    req.body.day = dayFormat(createdAt);
+    req.body.day = dayFormat(moment());
     global.io.emit('message', req.body);
     res.sendStatus(200);
   });
