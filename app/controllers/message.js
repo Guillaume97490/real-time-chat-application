@@ -1,4 +1,5 @@
 let Message = require('../models/message');
+const validator = require('validator');
 const moment = require('moment');
 require('moment/locale/fr');
 moment.updateLocale('fr', {calendar : {sameElse : 'DD MMM YYYY'}});
@@ -25,8 +26,11 @@ exports.list = (req, res) => {
 }).lean().sort({createdAt: 1});
 };
 
+
 exports.add = (req, res) => {
   req.body.createdAt = moment();
+  req.body.name = validator.escape(req.body.name);
+  req.body.message = validator.escape(req.body.message);
   var message = new Message(req.body);
   message.save((err) =>{
     if(err)
@@ -49,6 +53,8 @@ exports.delete = (req,res) => {
 };
 
 exports.update = (req,res)=> {
+  req.body.name = validator.escape(req.body.name);
+  req.body.message = validator.escape(req.body.message);
   Message.findByIdAndUpdate(req.body.id, {
     name: req.body.name,
     message: req.body.message

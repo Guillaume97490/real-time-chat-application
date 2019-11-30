@@ -10,8 +10,11 @@ $(() => {
       message: $("#message").val().trim()
     };
     $('[data-update-id]').length ? (params.id = $('[data-update-id]').data('updateId').trim(),updateMessage(params)) : sendMessage(params);
-    $("#message").val('');
+    $("#message").val('').focus();
+    $("#name").addClass('no-empty');
+
   });
+  $('#emoji-menu button').click((emoji)=> $('#message').val($('#message').val()+' '+$(emoji.currentTarget).data('emoji')));
   getMessages();
 });
 
@@ -54,12 +57,12 @@ function addMessages(message) {
       <div class="row">
 
         <div class="col-sm-10">
-          <h4 class="bold"><span data-msg-author>${message.name}</span><span class="text-secondary small">${message.createdAt}</span></h4>
+          <h4 class="bold mb-0"><span data-msg-author>${message.name}</span><span class="text-secondary small">${message.createdAt}</span></h4>
           <p class="m-0 mb-sm-4 mb-md-3" data-msg-content>${message.message}</p>
         </div>
 
         <div class="col-sm-2 d-flex justify-content-end">
-          <div>
+          <div class="d-flex">
             <button aria-label="Editer" class="border-0 bg-transparent" onclick="editMessage('${message._id}')"><i class="far fa-edit"></i></button>
             <button aria-label="Supprimer" class="border-0 bg-transparent" onclick="deleteMessage('${message._id}')"><i class="far fa-trash-alt"></i></button>
           </div>
@@ -80,12 +83,18 @@ function removeMessage(delMsg){
 
 editMessage = (msgId) => {
   $("#name").val($(`div[data-msg-id=${msgId}] [data-msg-author]`).text().trim());
-  $("#message").val($(`div[data-msg-id=${msgId}] [data-msg-content]`).text().trim());
-  $('[data-action-btn]').attr('id','update').attr('data-update-id',msgId).text('Modifier');
+  $("#message").val($(`div[data-msg-id=${msgId}] [data-msg-content]`).text().trim()).focus();
+  $('[data-action-btn]').attr('id','update').attr('data-update-id',msgId);
+  $('[data-action-btn] .send-text').text('Modifier');
   $('[data-action-btn]').data('updateId', msgId)
 };
 
-updateMessage = (updMsg)=> $.post(`http://localhost:3000/message/${updMsg.id}`,updMsg).done($('[data-action-btn]').attr('id','send').removeAttr('data-update-id').text('Envoyer'))
+updateMessage = (updMsg)=> {
+  $.post(`http://localhost:3000/message/${updMsg.id}`,updMsg).done(
+      $('[data-action-btn]').attr('id','send').removeAttr('data-update-id'),
+      $('[data-action-btn] .send-text').text('Envoyer'),
+    );
+}
 
 function changeMessage(updMsg){
   $(`[data-msg-id='${updMsg.id}'] [data-msg-author]`).text(updMsg.name);

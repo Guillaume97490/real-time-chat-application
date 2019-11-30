@@ -27,6 +27,15 @@ body {
     padding-top: 40px;
 }
 
+#message{
+  box-shadow: 0 0 5px #82828296;
+  border: 0;
+}
+
+.jumbotron{
+  box-shadow: 0 -8px 21px #ececec5c;
+}
+
 #messages .row{
   padding: 0 !important;
   margin: initial;
@@ -36,6 +45,22 @@ button[data-action-btn]{
   top: 0;
   bottom: 0;
   right: 0;
+  width: 90px;
+  color: #5a5a5a;
+}
+
+#emoji-group{
+  bottom: 0;
+  right: 80px;
+}
+
+.fa-paper-plane{
+  font-size: 1.5rem;
+  transform: translateY(10px);
+}
+
+.send-text{
+  font-size: 0.8rem;
 }
 
 textarea.form-control {
@@ -49,6 +74,12 @@ section.two{
 [data-msg-author]{
   font-weight: 600;
   color: #2461af;
+  font-size: 1.4rem;
+}
+
+p[data-msg-content]{
+  font-size: 1.2rem;
+  color: #4e4e4e;;
 }
 
 .day span{
@@ -60,8 +91,33 @@ section.two{
   padding-left: 10px;
 }
 
-[data-msg-author],[data-msg-content]{
-  word-break: break-all;
+#name{
+  box-shadow: 0 0 5px #82828296;
+
+}
+
+#name.no-empty{
+  background: none;
+  border: 0;
+  font-weight: 600;
+  font-size: 1.1rem;
+  text-decoration: underline;
+  box-shadow: none;
+}
+
+#name.no-empty:focus{
+  background: white;
+  border: 1px solid #ced4da;
+  font-weight: unset;
+  font-size: 1rem;
+  text-decoration: none;
+}
+
+#emoji-menu > div{
+  line-height: 2.2rem;
+}
+#emoji-menu button{
+  font-size: 1.3rem;
 }
 
 #sticky-footer {
