@@ -17,7 +17,11 @@ $(() => {
 
 sendMessage = (message) => $.post('http://localhost:3000/messages', message);
 
-$(document).keyup((e)=> e.key === 'Enter' ? $("#send").click() : '');
+$(document).keyup((e)=> {
+   if (e.key === 'Enter')
+     $("#send").length ? $("#send").click() : $("#update").click();
+   
+});
 
 let listOfDays = [];
 function displayDate(day){
