@@ -2,6 +2,12 @@ let socket = io();
 socket.on('message', addMessages);
 socket.on('delMsg', removeMessage);
 socket.on('updMsg', changeMessage);
+socket.on('usersNumber', countUsers);
+
+function countUsers(num){
+  const str = num > 1 ? 'Utilisateurs en ligne : ' : 'Utilisateur en ligne : '
+  $('#usersConnected').text(str + num);
+} 
 
 $(() => {
   $("#send").click(() => {
@@ -12,7 +18,6 @@ $(() => {
     $('[data-update-id]').length ? (params.id = $('[data-update-id]').data('updateId').trim(),updateMessage(params)) : sendMessage(params);
     $("#message").val('').focus();
     $("#name").addClass('no-empty');
-
   });
   $('#emoji-menu button').click((emoji)=> $('#message').val($('#message').val()+' '+$(emoji.currentTarget).text()));
   getMessages();
@@ -53,7 +58,7 @@ function addMessages(message) {
   };
 
   $("#messages").append(`
-      <div class="p-md-1" data-msg-id='${message._id}'>
+      <div class="" data-msg-id='${message._id}'>
       <div class="row">
 
         <div class="col-sm-10">
@@ -64,7 +69,7 @@ function addMessages(message) {
         <div class="col-sm-2 d-flex justify-content-end">
           <div class="d-flex">
             <button aria-label="Editer" class="border-0 bg-transparent" onclick="editMessage('${message._id}')"><i class="far fa-edit"></i></button>
-            <button aria-label="Supprimer" class="border-0 bg-transparent" onclick="deleteMessage('${message._id}')"><i class="far fa-trash-alt"></i></button>
+            <button aria-label="Supprimer" data-msg-id='${message._id}' class="border-0 bg-transparent" data-toggle="modal" data-target="#deleteModal"  ><i class="far fa-trash-alt"></i></button>
           </div>
         </div>
 
@@ -75,10 +80,19 @@ function addMessages(message) {
   $(element).last().hide().show('fast', ()=> element.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"}));
 };
 
+deleteConfirmation = () => $('#deleteModal').modal('toggle');
+
+$('#deleteModal').on('show.bs.modal', function (event) {
+  const msgId = $(event.relatedTarget).data('msgId');
+  const modal = $(this);
+  modal.find('.msgToRemove p').text($(`[data-msg-id=${msgId}] [data-msg-content]`).text());
+  modal.find('.btn-danger').attr('onclick',`deleteMessage('${msgId}')`);
+});
+
 deleteMessage = (delMsg) => $.get(`http://localhost:3000/message/${delMsg}/delete`).done(removeMessage(delMsg));
 
 function removeMessage(delMsg){
-  $(`div[data-msg-id=${delMsg}]`).hide('slow', ()=> $(this).remove());
+  $(`div[data-msg-id=${delMsg}]`).hide('slow', ()=> $(`div[data-msg-id=${delMsg}]`).remove());
 };
 
 editMessage = (msgId) => {
@@ -91,12 +105,14 @@ editMessage = (msgId) => {
 
 updateMessage = (updMsg)=> {
   $.post(`http://localhost:3000/message/${updMsg.id}`,updMsg).done(
-      $('[data-action-btn]').attr('id','send').removeAttr('data-update-id'),
-      $('[data-action-btn] .send-text').text('Envoyer'),
-    );
+    $('[data-action-btn]').attr('id','send').removeAttr('data-update-id'),
+    $('[data-action-btn] .send-text').text('Envoyer'),
+  );
 }
 
 function changeMessage(updMsg){
   $(`[data-msg-id='${updMsg.id}'] [data-msg-author]`).text(updMsg.name);
   $(`[data-msg-id='${updMsg.id}'] [data-msg-content]`).text(updMsg.message);
 };
+
+$('#myModal').on('shown.bs.modal', () => $('#myInput').trigger('focus'));

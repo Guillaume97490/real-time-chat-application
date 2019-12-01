@@ -2,7 +2,7 @@
 <div class="container">
   <div class="d-flex flex-column content-custom">
 
-  <section class="d-none d-md-block">
+  <section class="d-none">
     <h1 class="text-center">Messages <i class="fas fa-comments"></i></h1>
   </section>
 
@@ -11,8 +11,13 @@
   </section>
 
   <section >
+    
     <div class="jumbotron m-0 py-0 py-md-4 px-0 px-md-3 pt-3 bg-white">
-        <input id="name" aria-label="name" class="form-control" placeholder="Votre nom">
+      <div class="row m-0">
+        <div class="col-6 pl-0"><input id="name" aria-label="name" class="form-control" placeholder="Votre nom"></div>
+        <div class="col-6 d-flex align-items-center justify-content-end"><div id="usersConnected" class="text-secondary"></div></div>
+      </div>
+        
 
         <div class="position-relative">
           <textarea aria-label="message" id="message" class="form-control" placeholder="Votre message ici"></textarea>
@@ -49,6 +54,34 @@
 
     </div>
   </section>
+
+  <button id="confirm" type="button" class="btn btn-primary d-none" data-toggle="modal" data-target="#exampleModal">
+    Launch demo modal
+  </button>
+
+    <!-- Modal -->
+  <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteModal">Supprimer ce message ?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          
+          <div class="msgToRemove mt-2">
+            <p class="m-0 mb-sm-4 mb-md-3" data-msg-content></p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Oui</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div>
   
