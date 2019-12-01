@@ -145,7 +145,7 @@ p[data-msg-content]{
 }
 
 #sticky-footer {
-  flex-shrink: none;
+  flex-shrink: 0;
 }
 
 .nav-link.active{
