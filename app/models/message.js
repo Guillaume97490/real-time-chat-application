@@ -9,6 +9,7 @@ let messageSchema = mongoose.Schema({
     name : {
         type: String,
         maxlength: 10,
+        minlength: 3,
         required: true},
     message : {
         type: String,

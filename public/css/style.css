@@ -66,6 +66,7 @@ section.two{
 #message{
   box-shadow: 0 0 5px #82828296;
   border: 0;
+  resize: none;
 }
 #messages .row, #deleteModal p[data-msg-content]{
   margin: initial;

@@ -7,10 +7,11 @@ socket.on('usersNumber', countUsers);
 function countUsers(num){
   const str = num > 1 ? 'Utilisateurs en ligne : ' : 'Utilisateur en ligne : '
   $('#usersConnected').text(str + num);
-} 
+}
 
 $(() => {
-  $("#send").click(() => {
+    $('#sendMessage').on('submit', (e)=>{
+    e.preventDefault();
     let params = {
       name: $("#name").val().trim(),
       message: $("#message").val().trim()
@@ -18,7 +19,7 @@ $(() => {
     $('[data-update-id]').length ? (params.id = $('[data-update-id]').data('updateId').trim(),updateMessage(params)) : sendMessage(params);
     $("#message").val('').focus();
     $("#name").addClass('no-empty');
-  });
+});
   $('#emoji-menu button').click((emoji)=> $('#message').val($('#message').val()+' '+$(emoji.currentTarget).text()));
   getMessages();
 });
