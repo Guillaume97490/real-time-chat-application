@@ -23,7 +23,7 @@ $(() => {
   getMessages();
 });
 
-sendMessage = (message) => $.post('http://localhost:3000/messages', message);
+sendMessage = (message) => $.post(`/messages`, message);
 
 $(document).keyup((e)=> {
    if (e.key === 'Enter')
@@ -39,7 +39,7 @@ function displayDate(day){
 }
 
 function getMessages(){
-  $.get('http://localhost:3000/messages', (data) => data.forEach(addMessages));
+  $.get(`/messages`, (data) => data.forEach(addMessages));
 };
 
 function addMessages(message) {
@@ -89,7 +89,7 @@ $('#deleteModal').on('show.bs.modal', function (event) {
   modal.find('.btn-danger').attr('onclick',`deleteMessage('${msgId}')`);
 });
 
-deleteMessage = (delMsg) => $.get(`http://localhost:3000/message/${delMsg}/delete`).done(removeMessage(delMsg));
+deleteMessage = (delMsg) => $.get(`/message/${delMsg}/delete`).done(removeMessage(delMsg));
 
 function removeMessage(delMsg){
   $(`div[data-msg-id=${delMsg}]`).hide('slow', ()=> $(`div[data-msg-id=${delMsg}]`).remove());
@@ -104,7 +104,7 @@ editMessage = (msgId) => {
 };
 
 updateMessage = (updMsg)=> {
-  $.post(`http://localhost:3000/message/${updMsg.id}`,updMsg).done(
+  $.post(`/message/${updMsg.id}`,updMsg).done(
     $('[data-action-btn]').attr('id','send').removeAttr('data-update-id'),
     $('[data-action-btn] .send-text').text('Envoyer'),
   );
